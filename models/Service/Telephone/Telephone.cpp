@@ -39,7 +39,7 @@ namespace Service{
         other.date = 0L;
     }
 
-    double Fax::getTraffic() const {
+    double Fax::getTraffic() {
         return traffic;
     }
 
@@ -79,6 +79,10 @@ namespace Service{
 
     TelephoneType Internet::getType() {
         return INTERNET;
+    }
+
+    double Internet::getTraffic() {
+        return inputTraffic + outputTraffic;
     }
 
     std::ostream& operator<<(std::ostream& out, Telephone& t){

@@ -31,6 +31,7 @@ namespace Service {
 
         virtual std::string toString();
         virtual TelephoneType getType();
+        virtual double getTraffic() {return 0;};
 
         Telephone& operator= (const Telephone&) = default;
         Telephone& operator= (Telephone&&) noexcept = default;
@@ -50,7 +51,7 @@ namespace Service {
         Fax(const Fax&) = default;
         Fax(Fax&&) noexcept = default;
 
-        [[nodiscard]] double getTraffic() const;
+        double getTraffic() override;
         void setTraffic(double traffic);
 
         std::string toString() override;
@@ -80,6 +81,7 @@ namespace Service {
 
         std::string toString() override;
         TelephoneType getType() override;
+        double getTraffic() override;
 
         Internet& operator= (const Internet&) = default;
         Internet& operator= (Internet&&) noexcept = default;

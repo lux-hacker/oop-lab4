@@ -19,11 +19,33 @@ namespace collection {
     class list {
         ListNode<T> *head;
         ListNode<T> *tail;
+
+        void deleteList(){
+            while(head != nullptr){
+                auto tmp = head;
+                head = head->next;
+                delete tmp->data;
+                delete tmp;
+            }
+            head = nullptr;
+            tail = nullptr;
+        }
     public:
         friend class ListIterator<T>;
         typedef ListIterator<T> iterator;
 
         list(): head(nullptr), tail(nullptr){}
+
+        list(const list<T>& other): head(other.head), tail(other.tail){};
+        list(list<T>&& other) noexcept : head(other.head), tail(other.tail){
+            other.head = nullptr;
+            other.tail = nullptr;
+        }
+
+        ~list(){
+            deleteList();
+        }
+
 
         void push_back(T& data){
             if(this->tail) {
@@ -35,6 +57,7 @@ namespace collection {
                 this->tail = this->head;
             }
         }
+
         void push_front(T&data) {
             if(this->head) {
                 auto *t = new ListNode<T>(data);
@@ -46,8 +69,8 @@ namespace collection {
                 this->head = new ListNode<T>(data);
                 this->tail = this->head;
             }
-
         }
+
         void insert(const iterator pos, T& data){
             auto new_node = new ListNode<T>(data);
             ListNode<T> *node = nullptr;
@@ -66,6 +89,7 @@ namespace collection {
         iterator begin(){
             return list<T>::iterator(head);
         }
+
         iterator end(){
             return list<T>::iterator(nullptr);
         }

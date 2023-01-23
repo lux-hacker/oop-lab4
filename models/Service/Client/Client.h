@@ -2,7 +2,8 @@
 #define OOP_LAB4_CLIENT_H
 
 #include <string>
-#include <utility>
+#include <iostream>
+
 
 namespace Service {
     enum ClientType{
@@ -39,7 +40,14 @@ namespace Service {
 
         virtual std::string toString();
         virtual ClientType getType();
+
+        Client& operator= (const Client&) = default;
+        Client& operator= (Client&&) noexcept = default;
+
+        friend std::ostream& operator<< (std::ostream&, Client&);
     };
+
+    std::ostream& operator<< (std::ostream&, Client&);
 
     class LegalClient: public Client{
         std::string organization;
@@ -56,6 +64,9 @@ namespace Service {
 
         std::string toString() override;
         ClientType getType() override;
+
+        LegalClient& operator= (const LegalClient&) = default;
+        LegalClient& operator= (LegalClient&&) noexcept = default;
     };
 }
 

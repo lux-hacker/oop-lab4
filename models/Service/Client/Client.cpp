@@ -72,5 +72,8 @@ namespace Service{
         this->organization = organization;
     }
 
-
+    std::ostream& operator<< (std::ostream& out, Client& c){
+        out << c.toString();
+        return out;
+    }
 }

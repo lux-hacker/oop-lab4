@@ -40,7 +40,7 @@ namespace Service{
         this->bankNumber = bN;
     }
 
-    std::string Client::toString() {
+    std::string Client::toString(){
         return name + " - " + address + " - " + bankNumber;
     }
 

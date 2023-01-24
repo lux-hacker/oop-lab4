@@ -74,14 +74,18 @@ namespace collection {
         void insert(const iterator pos, T& data){
             auto new_node = new ListNode<T>(data);
             ListNode<T> *node = nullptr;
-            if(pos.ptr != nullptr) node = pos.ptr->prev;
-            if(node != nullptr){
+            if(pos.ptr != nullptr){
+                node = pos.ptr->prev;
                 new_node->next = node->next;
                 new_node->prev = node;
                 node->next = new_node;
-            }
-            if(pos.ptr != nullptr)
                 new_node->next->prev = new_node;
+            }
+            else{
+                this->tail->next = new_node;
+                this->tail->next->prev = this->tail;
+                this->tail = this->tail->next;
+            }
             if(pos == this->begin())
                 this->head = new_node;
         }
@@ -109,7 +113,7 @@ namespace collection {
             return this->ptr == other.ptr;
         }
 
-        const T& operator*(){
+        T& operator*(){
             if (this->ptr) return ptr->data;
             throw std::invalid_argument("Exception#1: illegal value for List iterator");
         }

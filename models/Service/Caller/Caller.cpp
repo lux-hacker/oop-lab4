@@ -1,6 +1,6 @@
 #include "Caller.h"
 namespace Service{
-    const Client &Caller::getClient() const {
+    const Client Caller::getClient(){
         return client;
     }
 

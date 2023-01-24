@@ -16,7 +16,7 @@ namespace Service {
         Caller(Client client, vector<Telephone*> vector): client(std::move(client)), services(std::move(vector)) {};
 
 
-        [[nodiscard]] const Client &getClient() const;
+        [[nodiscard]] const Client getClient();
         void setClient(const Client &client);
         [[nodiscard]] const vector <Telephone*> &getServices() const;
         void setServices(const vector <Telephone*> &services);

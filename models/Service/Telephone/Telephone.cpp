@@ -1,5 +1,5 @@
 #include "Telephone.h"
-namespace Service{
+namespace service{
     const std::string & Telephone::getNumber() const {
         return number;
     }
@@ -73,7 +73,7 @@ namespace Service{
     }
 
     std::string Internet::toString() {
-        return number + " - " + std::to_string(date) + " - " + std::to_string(duration) +
+        return "TelephoneSession: " + number + " - " + std::to_string(date) + " - " + std::to_string(duration) +
         " - " + std::to_string(inputTraffic) + " - " + std::to_string(outputTraffic);
     }
 

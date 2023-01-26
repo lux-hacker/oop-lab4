@@ -3,9 +3,10 @@
 
 #include <string>
 #include <iostream>
+#include <utility>
 
 
-namespace Service {
+namespace service {
     enum ClientType{
         INDIVIDUAL, ENTITY
     };
@@ -21,7 +22,7 @@ namespace Service {
         address("DefaultAddress"),
         bankNumber("DefaultBankNumber") {};
 
-        Client(std::string &name, std::string &address, std::string &bN) :
+        Client(std::string name, std::string address, std::string bN) :
         name(std::move(name)),
         address(std::move(address)),
         bankNumber(std::move(bN)) {};

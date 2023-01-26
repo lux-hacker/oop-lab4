@@ -75,26 +75,43 @@ namespace collection {
             auto new_node = new ListNode<T>(data);
             ListNode<T> *node = nullptr;
             if(pos.ptr != nullptr){
-                node = pos.ptr->prev;
-                new_node->next = node->next;
-                new_node->prev = node;
-                node->next = new_node;
-                new_node->next->prev = new_node;
+                if(pos != this->begin()) {
+                    node = pos.ptr->prev;
+                    new_node->next = node->next;
+                    new_node->prev = node;
+                    node->next = new_node;
+                    new_node->next->prev = new_node;
+                } else {
+                    new_node->next = this->head;
+                    this->head->prev = new_node;
+                    this->head = new_node;
+                }
             }
             else{
-                this->tail->next = new_node;
-                this->tail->next->prev = this->tail;
-                this->tail = this->tail->next;
+                if(this->tail) {
+                    this->tail->next = new_node;
+                    this->tail->next->prev = this->tail;
+                    this->tail = this->tail->next;
+                } else {
+                    this->tail = new_node;
+                }
             }
             if(pos == this->begin())
                 this->head = new_node;
         }
 
-        iterator begin(){
+        list<T>& operator=(const list<T>& other){
+            for(T itr:other){
+                this->push_back(itr);
+            }
+            return *this;
+        }
+
+        iterator begin() const {
             return list<T>::iterator(head);
         }
 
-        iterator end(){
+        iterator end() const {
             return list<T>::iterator(nullptr);
         }
     };
@@ -113,9 +130,9 @@ namespace collection {
             return this->ptr == other.ptr;
         }
 
-        T& operator*(){
-            if (this->ptr) return ptr->data;
-            throw std::invalid_argument("Exception#1: illegal value for List iterator");
+        T operator*(){
+            if(ptr == nullptr) return nullptr;
+            return ptr->data;
         }
 
         ListIterator<T> &operator++(){

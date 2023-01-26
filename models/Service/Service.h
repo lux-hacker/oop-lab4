@@ -4,13 +4,15 @@
 #include "Caller/Caller.h"
 #include "../collection/list.h"
 
-namespace Service {
+namespace service{
     class CallerData {
         Caller *caller;
         std::string ID;
     public:
         CallerData() : caller(nullptr), ID("DefaultID") {};
         CallerData(Caller *caller, std::string ID) : caller(caller), ID(std::move(ID)) {};
+
+        ~CallerData() {delete caller;};
 
         [[nodiscard]] Caller *getCaller();
         void setCaller(Caller *caller);
@@ -31,7 +33,6 @@ namespace Service {
                 : name(std::move(name)), callers(), subscribePrice(subscribePrice), minutePrice(minutePrice),
                   MBPrice(MBPrice) {};
 
-
         [[nodiscard]] const std::string &getName() const;
         void setName(const std::string &name);
         [[nodiscard]] const list<CallerData *> &getCallers();
@@ -45,7 +46,13 @@ namespace Service {
         void addNewCallerByID(Caller*, const std::string&);
         Caller* findCallerByID(const std::string&);
         std::string toString();
+
+        Service& operator= (const Service&);
+
+        friend std::ostream& operator << (std::ostream& out, Service&);
     };
+
+    std::ostream& operator << (std::ostream& out, Service&);
 }
 
 

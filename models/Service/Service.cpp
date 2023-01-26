@@ -1,6 +1,7 @@
+#include <list>
 #include "Service.h"
 
-namespace Service{
+namespace service{
     Caller *CallerData::getCaller(){
         return caller;
     }
@@ -22,7 +23,7 @@ namespace Service{
     }
 
     void Service::setName(const std::string &name) {
-        Service::name = name;
+        this->name = name;
     }
 
     const list<CallerData *> &Service::getCallers() {
@@ -57,7 +58,9 @@ namespace Service{
         auto itr = callers.begin();
         while(itr != callers.end() && (*itr)->getId().compare(ID) < 0)
             itr++;
-        if((*itr)->getId() == ID) throw std::invalid_argument("UnUniqID: ID must be uniq");
+        if(*itr != nullptr){
+            if ((*itr)->getId() == ID) throw std::invalid_argument("UnUniqID: ID must be uniq");
+        }
         auto new_caller = new CallerData(caller, ID);
         callers.insert(itr, new_caller);
     }
@@ -70,12 +73,26 @@ namespace Service{
         return nullptr;
     }
 
+    Service &Service::operator=(const Service &other) {
+        this->callers = other.callers;
+        this->name = other.name;
+        this->subscribePrice = other.subscribePrice;
+        this->minutePrice = other.minutePrice;
+        this->MBPrice = other.MBPrice;
+        return *this;
+    }
+
     std::string Service::toString() {
         std::string res;
-        for(auto cd : callers){
-            auto client =  cd->getCaller()->getClient();
-            res += client.toString() + '\n';
+        int i = 1;
+        for(CallerData* cd : callers){
+            res += std::to_string(i++) + ") " + cd->getId() + " - " + cd->getCaller()->getClient()->getName() + "\n";
         }
         return res;
+    }
+
+    std::ostream &operator<<(std::ostream &out, Service & s) {
+        out << s.toString();
+        return out;
     }
 }

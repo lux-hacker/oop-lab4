@@ -5,21 +5,23 @@
 #include "../Telephone/Telephone.h"
 #include "../../collection/vector.h"
 
-namespace Service {
+namespace service {
     using namespace collection;
 
     class Caller {
-        Client client;
+        Client* client;
         vector<Telephone*> services;
     public:
         Caller(): client(), services(){}
-        Caller(Client client, vector<Telephone*> vector): client(std::move(client)), services(std::move(vector)) {};
+        Caller(Client* client, vector<Telephone*> vector): client(client), services(std::move(vector)) {};
+        Caller(Client* client): client(client), services(vector<Telephone*>()) {};
 
+        ~Caller(){delete client;}
 
-        [[nodiscard]] const Client getClient();
-        void setClient(const Client &client);
+        [[nodiscard]] Client* getClient();
+        void setClient(Client *client);
         [[nodiscard]] const vector <Telephone*> &getServices() const;
-        void setServices(const vector <Telephone*> &services);
+        void setServices(vector <Telephone*> &services);
 
         void addNewService(Telephone*);
         void setDurationByIndex(int, int);

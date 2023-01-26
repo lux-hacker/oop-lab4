@@ -1,6 +1,8 @@
-#include <iostream>
-#include "models/collection/vector.h"
-int main() {
+#include "controller/Controller.h"
 
-    return 0;
+int main() {
+    app::Controller app;
+    while(app.run() != 0);
+
 }
+

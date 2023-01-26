@@ -1,6 +1,6 @@
 #include "Client.h"
 
-namespace Service{
+namespace service{
     Client::Client(const Client &other) {
         name = other.name;
         address = other.address;
@@ -41,7 +41,7 @@ namespace Service{
     }
 
     std::string Client::toString(){
-        return name + " - " + address + " - " + bankNumber;
+        return "Client: " + name + " - " + address + " - " + bankNumber;
     }
 
     ClientType Client::getType() {
@@ -49,7 +49,7 @@ namespace Service{
     }
 
     std::string LegalClient::toString() {
-        return organization + " - " + name + " - " + address + " - " + bankNumber;
+        return "LegalClietn: " + organization + " - " + name + " - " + address + " - " + bankNumber;
     }
 
     ClientType LegalClient::getType() {

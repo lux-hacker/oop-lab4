@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-namespace Service {
+namespace service {
     enum TelephoneType{
         TELEPHONE, FAX, INTERNET
     };

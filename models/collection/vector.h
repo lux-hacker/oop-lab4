@@ -11,7 +11,7 @@ namespace collection{
     template<class T>
     class vector{
     private:
-        int size;
+        int _size;
         T* data;
 
         static T* realloc(const T* mass, int old_size, int new_size){
@@ -23,17 +23,17 @@ namespace collection{
             return arr;
         }
     public:
-        vector(): size(0), data(nullptr){};
-        vector(int size, T* data) : size(size), data(std::move(data)){};
+        vector(): _size(0), data(nullptr){};
+        vector(int size, T* data) : _size(size), data(std::move(data)){};
         vector(const vector<T>& other){
-            size = other.size;
-            data = realloc(data, 0, size);
-            for(int i = 0; i < size; i++){
+            _size = other._size;
+            data = realloc(data, 0, _size);
+            for(int i = 0; i < _size; i++){
                 data[i] = other.data[i];
             }
         }
-        vector(vector<T> &&other) noexcept: size(other.size), data(std::move(other.data)){
-            other.size = 0;
+        vector(vector<T> &&other) noexcept: _size(other._size), data(std::move(other.data)){
+            other._size = 0;
             delete[] other.data;
             other.data = nullptr;
         }
@@ -43,16 +43,16 @@ namespace collection{
         }
 
         T &operator[] (int index){
-            if(index < 0 || index > size) throw std::invalid_argument("IndexOutOfRange: index can be [0, " + std::to_string(size) + "]");
-            if(index == size){
-                data = realloc(data, size, size+1);
-                size++;
+            if(index < 0 || index > _size) throw std::invalid_argument("IndexOutOfRange: index can be [0, " + std::to_string(_size) + "]");
+            if(index == _size){
+                data = realloc(data, _size, _size + 1);
+                _size++;
             }
             return data[index];
         }
 
         T &operator[] (int index) const{
-            if(index < 0 || index >= size) throw std::invalid_argument("IndexOutOfRange: index can be [0, " + std::to_string(size) + ")");
+            if(index < 0 || index >= _size) throw std::invalid_argument("IndexOutOfRange: index can be [0, " + std::to_string(_size) + ")");
 
             return data[index];
         }
@@ -60,9 +60,9 @@ namespace collection{
         vector<T> &operator=(const vector<T>& other) {
             //if (*other != this) {
                 delete[] data;
-                data = realloc(data, size, other.size);
-                size = other.size;
-                for (int i = 0; i < size; i++)
+                data = realloc(data, _size, other._size);
+            _size = other._size;
+                for (int i = 0; i < _size; i++)
                     data[i] = other.data[i];
             //}
             return *this;
@@ -71,27 +71,27 @@ namespace collection{
         vector<T> &operator=(vector&& other) noexcept{
             //if (*other != this) {
                 delete[] data;
-                data = realloc(data, size, other.size);
-                size = other.size;
-                for (int i = 0; i < size; i++)
+                data = realloc(data, _size, other._size);
+            _size = other._size;
+                for (int i = 0; i < _size; i++)
                     data[i] = other.data[i];
 
                 delete[] other.data;
                 other.data = nullptr;
-                other.size = 0;
+                other._size = 0;
             //}
             return *this;
         }
 
         [[nodiscard]] int getSize() const{
-            return size;
+            return _size;
         }
-        void setSize(int size){
-            if(size < 0) throw std::invalid_argument("NegativeSize: size of vector cannot be negative");
-            T* mass = new T[size];
+        void size(int __size){
+            if(__size < 0) throw std::invalid_argument("NegativeSize: _size of vector cannot be negative");
+            T* mass = new T[__size];
             int _size;
-            if(size < this->size) _size = size;
-            else _size = this->size;
+            if(__size < this->_size) _size = __size;
+            else _size = this->_size;
 
             for(int i = 0; i < _size; i++){
                 mass[i] = data[i];
@@ -99,7 +99,7 @@ namespace collection{
 
             delete[] data;
             data = mass;
-            this->size = _size;
+            this->_size = _size;
         }
 
         friend class VectorIterator<T>;
@@ -110,7 +110,7 @@ namespace collection{
         }
 
         vector<T>::iterator end(){
-            return iterator(data + size);
+            return iterator(data + _size);
         }
     };
 

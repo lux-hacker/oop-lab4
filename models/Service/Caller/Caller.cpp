@@ -1,10 +1,10 @@
 #include "Caller.h"
-namespace Service{
-    const Client Caller::getClient(){
+namespace service{
+    Client* Caller::getClient(){
         return client;
     }
 
-    void Caller::setClient(const Client &client) {
+    void Caller::setClient(Client *client) {
         this->client = client;
     }
 
@@ -12,7 +12,7 @@ namespace Service{
         return services;
     }
 
-    void Caller::setServices(const vector<Telephone*> &services) {
+    void Caller::setServices(vector<Telephone *> &services) {
         this->services = services;
     }
 
@@ -25,7 +25,7 @@ namespace Service{
     }
 
     ClientType Caller::getClientType() {
-        return client.getType();
+        return client->getType();
     }
 
     Telephone* Caller::operator[](int i) const {

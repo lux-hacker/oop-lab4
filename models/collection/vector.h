@@ -83,33 +83,18 @@ namespace collection{
             return *this;
         }
 
-        [[nodiscard]] int getSize() const{
+        [[nodiscard]] int size() const{
             return _size;
-        }
-        void size(int __size){
-            if(__size < 0) throw std::invalid_argument("NegativeSize: _size of vector cannot be negative");
-            T* mass = new T[__size];
-            int _size;
-            if(__size < this->_size) _size = __size;
-            else _size = this->_size;
-
-            for(int i = 0; i < _size; i++){
-                mass[i] = data[i];
-            }
-
-            delete[] data;
-            data = mass;
-            this->_size = _size;
         }
 
         friend class VectorIterator<T>;
         typedef VectorIterator<T> iterator;
 
-        vector<T>::iterator begin(){
+        vector<T>::iterator begin() const {
             return iterator(data);
         }
 
-        vector<T>::iterator end(){
+        vector<T>::iterator end() const {
             return iterator(data + _size);
         }
     };

@@ -18,11 +18,12 @@ namespace app {
 
         int run();
         void editCaller();
-        void editTelephone();
+        void _editCaller(CallerData*);
+        void editTelephone(Telephone*, Caller*);
         Caller* createCaller();
         void showTable();
-        int getAmountTrafficForCaller();
-        int* getAmountDuration();
+        double getAmountTrafficForCaller();
+        vector<int> getAmountDuration();
         double getAmountPrice();
     };
 }

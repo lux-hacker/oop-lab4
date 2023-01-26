@@ -37,4 +37,18 @@ namespace app::menu{
         cout << ">> Enter point >> ";
     }
 
+    void editTelephoneDataMenu(service::TelephoneType type) {
+        cout << "=====[EDIT HISTORY OF USAGE]=====" << endl;
+        cout << "1) Edit number" << endl;
+        cout << "2) Edit date" << endl;
+        cout << "3) Edit duration" << endl;
+        if (type == service::FAX){
+            cout << "4) Edit traffic" << endl;
+        } else if (type == service::INTERNET){
+            cout << "4) Edit input traffic" << endl;
+            cout << "5) Edit output traffic" << endl;
+        }
+        cout << ">> Enter point >> ";
+    }
+
 }

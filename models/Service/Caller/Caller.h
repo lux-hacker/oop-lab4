@@ -20,18 +20,17 @@ namespace service {
 
         [[nodiscard]] Client* getClient();
         void setClient(Client *client);
-        [[nodiscard]] const vector <Telephone*> &getServices() const;
+        [[nodiscard]] vector <Telephone*> &getServices();
         void setServices(vector <Telephone*> &services);
 
         void addNewService(Telephone*);
-        void setDurationByIndex(int, int);
         ClientType getClientType();
         Telephone* operator[](int) const;
-        int getAmountDurationByType(TelephoneType);
-        double getAmountTrafficByType(TelephoneType);
-        int getCountServicesByType(TelephoneType);
 
+        friend std::ostream& operator << (std::ostream&, const Caller&);
     };
+
+    std::ostream& operator << (std::ostream&, const Caller&);
 }
 
 

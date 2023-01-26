@@ -55,12 +55,10 @@ namespace service{
     }
 
     void Service::addNewCallerByID(Caller *caller, const std::string& ID) {
+        if(findCallerByID(ID) != nullptr) return;
         auto itr = callers.begin();
         while(itr != callers.end() && (*itr)->getId().compare(ID) < 0)
             itr++;
-        if(*itr != nullptr){
-            if ((*itr)->getId() == ID) throw std::invalid_argument("UnUniqID: ID must be uniq");
-        }
         auto new_caller = new CallerData(caller, ID);
         callers.insert(itr, new_caller);
     }
@@ -94,5 +92,12 @@ namespace service{
     std::ostream &operator<<(std::ostream &out, Service & s) {
         out << s.toString();
         return out;
+    }
+
+    int Service::getSize() const {
+        int res = 0;
+        for(auto cd: callers)
+            res++;
+        return res;
     }
 }

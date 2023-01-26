@@ -46,6 +46,7 @@ namespace service{
         void addNewCallerByID(Caller*, const std::string&);
         Caller* findCallerByID(const std::string&);
         std::string toString();
+        [[nodiscard]] int getSize() const;
 
         Service& operator= (const Service&);
 

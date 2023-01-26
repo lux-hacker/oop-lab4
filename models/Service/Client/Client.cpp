@@ -49,7 +49,7 @@ namespace service{
     }
 
     std::string LegalClient::toString() {
-        return "LegalClietn: " + organization + " - " + name + " - " + address + " - " + bankNumber;
+        return "LegalClient: " + organization + " - " + name + " - " + address + " - " + bankNumber;
     }
 
     ClientType LegalClient::getType() {

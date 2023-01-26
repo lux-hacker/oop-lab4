@@ -25,7 +25,7 @@ namespace service{
     }
 
     std::string Telephone::toString() {
-        return number + " - " + std::to_string(date) + " - " + std::to_string(duration);
+        return "TelephoneSession: " + number + " - " + std::to_string(date) + " - " + std::to_string(duration);
     }
 
     TelephoneType Telephone::getType() {
@@ -48,7 +48,7 @@ namespace service{
     }
 
     std::string Fax::toString() {
-        return number + " - " + std::to_string(date) + " - "
+        return "FaxSession: " +  number + " - " + std::to_string(date) + " - "
         + std::to_string(duration) + " - " + std::to_string(traffic);
     }
 
@@ -73,7 +73,7 @@ namespace service{
     }
 
     std::string Internet::toString() {
-        return "TelephoneSession: " + number + " - " + std::to_string(date) + " - " + std::to_string(duration) +
+        return "InternetSession: " + number + " - " + std::to_string(date) + " - " + std::to_string(duration) +
         " - " + std::to_string(inputTraffic) + " - " + std::to_string(outputTraffic);
     }
 

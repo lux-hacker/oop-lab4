@@ -31,7 +31,7 @@ namespace service {
 
         virtual std::string toString();
         virtual TelephoneType getType();
-        virtual double getTraffic() {return 0;};
+        virtual double getTraffic() {return 0;}
 
         Telephone& operator= (const Telephone&) = default;
         Telephone& operator= (Telephone&&) noexcept = default;
